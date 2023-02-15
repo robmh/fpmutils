@@ -14,7 +14,8 @@ reg_fpm_growth(
 )
 }
 \arguments{
-\item{df_trees}{}
+\item{df_trees}{\code{data.frame} containing the sizes of every tree at two different
+time points. See \code{Details} below for more information.}
 
 \item{df_pred}{}
 
@@ -27,7 +28,18 @@ reg_fpm_growth(
 \item{country}{character, origin of the data set. Only \code{"spain"} has been implemented.
 It can be given in lower or upper case letters, or a mixture of the two.}
 }
+\value{
+A \code{list} whose elements correspond to each \code{species}. Each element, in turn, includes
+two regression objects for the expected growth and its variance.
+}
 \description{
 It applies a non-linear regression scheme to determine tree diameter growth as a function
 of a set of predictors.
+}
+\details{
+If the input data sets correspond to the Spanish Inventario Forestal Nacional,
+the columns in \code{df_trees} must be named \code{"dbh"}, \code{"dbh1"},
+\code{"species"} and \code{"tdiff"}, corresponding respectively to first and second
+tree diameter, tree species and time difference (in years strictly positive) between the first and the
+second time points.
 }
