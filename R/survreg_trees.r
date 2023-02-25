@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-survreg_trees <- function(rhs, dat, dist = "exponential") {
+survreg_trees <- function(rhs, dat, dist = "weibull") {
   
   if (!inherits(rhs, "formula")) stop("Input 'rhs' must be the right-hand-side of a formula")
 

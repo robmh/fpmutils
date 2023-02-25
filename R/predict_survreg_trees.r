@@ -10,21 +10,16 @@
 #' @export
 #'
 #' @examples
-predict_survreg_trees <- function(obj, newdat, p = NULL) {
+predict_survreg_trees <- function(obj, newdat, x) {
   
   # Checks.
   if (!any("tdiff" %in% colnames(newdat))) stop("Input data.frame 'newdat' must contain a 'tdiff' column")
-  if (!is.null(p)) {
-    if (min(p) != 0 | max(p) != 1) stop("Vector of percentiles 'p' must have min and max equal to 0,1")
-  }
-  if (is.null(p)) p <- seq(0, 1, by = 0.01)
 
-  # Predictions for percentiles.
-  q <- predict(obj, newdata = newdat, type = "quantile", p = p, se = F)
+  # Link.
+  pred <- predict(obj, newdata = newdat, type = "link", se = F)
   
-  # Linear interpolation to find out survival probabilities.
-  prob <- sapply(1:nrow(q), function(i) approx(q[i, ], p, newdat$tdiff[i])$y)
+  p <- location_scale(obj, pred, x)
 
-  return(prob)
+  return(p)
   
 }
