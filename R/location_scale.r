@@ -7,5 +7,5 @@ location_scale <- function(obj, pred, x) {
   )
 
   return(1-p)
-  
+
 }
