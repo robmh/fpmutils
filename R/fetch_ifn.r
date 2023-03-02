@@ -31,11 +31,11 @@ fetch_ifn <- function(ifn = 2, type = "trees", region = "spain", userpwd = NULL)
   
   # Data type.
   if (ifn == 2) {
-    a <- paste0(a, ifelse(type == "saplings", "piesMenoresDataIFN2", "piesMayoresDataIFN2"))
-    a <- paste0(a, ifelse(region == "catalonia", "_Catalunya.csv", "_Spain.csv"))
+    b <- ifelse(type == "saplings", "piesMenoresDataIFN2", "piesMayoresDataIFN2")
+    b <- paste0(b, ifelse(region == "catalonia", "_Catalunya.csv", "_Spain.csv"))
   } else if (ifn == 3) {
-    a <- paste0(a, ifelse(type == "saplings", "regDataIFN3", "treeDataIFN3"))
-    a <- paste0(a, ifelse(region == "catalonia", "_Catalunya.csv", "_Spain.csv"))
+    b <- ifelse(type == "saplings", "regDataIFN3", "treeDataIFN3")
+    b <- paste0(b, ifelse(region == "catalonia", "_Catalunya.csv", "_Spain.csv"))
   }
   
   # h <- curl::new_handle()
@@ -47,8 +47,13 @@ fetch_ifn <- function(ifn = 2, type = "trees", region = "spain", userpwd = NULL)
   # a <- "ftp://data-emf.creaf.cat:22111/rmolowny/prueba.csv"
   # kk<-read.csv(curl(url = a, handle = h))
   # browser()
-  
+
   # Fetch data.
-  return(read.csv(curl::curl(url = a, handle = emf_handle)))
+  cat("\n-> Retrieving ", b, " from data server...\n")
+  dat <- read.csv(curl::curl(url = paste0(a,b), handle = emf_handle))
+  cat("\n\n")
+  
+  return()
+  
   
 }
